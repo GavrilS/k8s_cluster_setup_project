@@ -17,6 +17,9 @@ Vagrant.configure("2") do |config|
         vb.name = node[:name]
         vb.cpus = node[:cpus]
         vb.memory = node[:memory]
+        # The following lines are a fix for AMD processors when attempting to pass CPU virtualization capabilities down into the VM
+        vb.customize ["modifyvm", :id, "--nested-hw-virt", "off"]
+        vb.customize ["modifyvm", :id, "--hwvirtex", "on"]
       end
     end
   end
