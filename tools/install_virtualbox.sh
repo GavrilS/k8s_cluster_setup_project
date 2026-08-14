@@ -1,6 +1,10 @@
 #!/bin/bash
 
-# Install VirtualBox using Oracle's official build as the version from Ubuntu's repository is often out of date
+# Remove old version and install VirtualBox using Oracle's official build as the version from Ubuntu's repository is often out of date
+
+sudo apt remove --purge virtualbox virtualbox-dkms virtualbox-qt
+
+sudo apt autoremove -y
 
 sudo apt update
 
