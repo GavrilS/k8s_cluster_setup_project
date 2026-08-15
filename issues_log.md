@@ -17,3 +17,14 @@ uninstalling vagrant and installing a newer version directly from Hashicorp with
 'tools/install_vagrant.sh' script.
 
 ---
+
+2. After solving the issue with the outdated VirtualBox/Vagrant versions, I tried running 
+the 'vagrant up' command, but hit another issue. Vagrant was creating the master node and 
+immediately running ansible, instead of crating the other 2 nodes before that, so that all 
+3 would be provisioned together. This was an issue with the order of the VM creations as 
+well as the definition of the provisioning block in the Vagrantfile. Changing the place of 
+the node definitions solved this, but there was also an issue with ansible connecting to 
+the other nodes, so I have to properly structure the path to the ssh keys for the 
+different machines in the ansible inventory file.
+
+---
