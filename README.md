@@ -32,3 +32,11 @@ This project is to be run on a Linux based OS. It is developed and tested on Ubu
 > vagrant up
 
 ===
+
+3. Set up a workstation from which to check the status of the cluster and run kubectl/helm 
+commands. To do this the workstation needs to have kubectl/helm installed and be configured
+to be able to communicate with the kube-apiserver. This is done with the script 
+'./tools/setup_workstation.sh'. Run the script with the following command:
+
+> chmod +x ./tools/setup_workstation.sh
+> ./tools/setup_workstation.sh
