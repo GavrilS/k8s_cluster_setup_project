@@ -1,0 +1,56 @@
+---
+grafana:
+  enabled: true
+  service:
+    type: ClusterIP
+  persistence:
+    enabled: true
+    size: 5Gi
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - grafana.example.com
+    path: /
+  admin:
+    existingSecret: grafana-admin-secret
+    userKey: admin-user
+    passwordKey: admin-password
+
+prometheus:
+  prometheusSpec:
+    retention: 5d
+    resources:
+      requests:
+        cpu: 200m
+        memory: 512Mi
+      limits:
+        cpu: 500m
+        memory: 1Gi
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 10Gi
+
+alertmanager:
+  enabled: true
+  alertmanagerSpec:
+    storage:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 2Gi
+
+defaultRules:
+  create: true
+
+nodeExporter:
+  enabled: true
+
+kubeStateMetrics:
+  enabled: true
