@@ -28,3 +28,15 @@ the other nodes, so I have to properly structure the path to the ssh keys for th
 different machines in the ansible inventory file.
 
 ---
+
+3. Another problem I encountered was when I was trying to create an ingress rule for 
+grafana. It was not being created and instead the command was failing with a timeout. 
+The issue was related to the ingress-nginx-controller's admission webhook not allowing it. 
+It looks like it is not working very well on a local cluster setup. I will look into this 
+further to see if there is a way to resolve it.
+
+For the time being, what actually works is updating the setup to not enable the admission 
+webhook, but it also needed to be disabled for Prometheus when using the helm chart to 
+install the Prometheus stack.
+
+---
