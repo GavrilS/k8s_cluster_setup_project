@@ -11,7 +11,8 @@ grafana:
     ingressClassName: nginx
     hosts:
       - grafana.example.com
-    path: /
+    paths:
+      - /
   admin:
     existingSecret: grafana-admin-secret
     userKey: admin-user
