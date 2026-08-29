@@ -15,3 +15,5 @@ controller:
     limits:
       cpu: 200m
       memory: 180Mi
+  admissionWebhooks:
+    enabled: false

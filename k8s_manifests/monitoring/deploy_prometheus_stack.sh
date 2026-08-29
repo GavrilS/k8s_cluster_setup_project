@@ -13,4 +13,5 @@ kubectl apply -f grafana_secret.yaml
 # 4. Install
 helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack \
     --namespace monitoring \
-    -f values.yaml
+    -f values.yaml \
+    --no-hooks
