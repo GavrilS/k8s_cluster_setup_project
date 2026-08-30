@@ -87,4 +87,43 @@ this project.
 > bash deploy_prometheus_stack.sh
 > bash verify_prometheus_setup.sh -> optional, to test if the different Prometheus components were properly installed
 
+* To configure the cluster to be able to open Grafana in your browser there are additional 
+steps that need to be taken. 
+
+4.4.1 Prepare the cluster
+
+* If the cluster is using kube-proxy in IPVS mode, you must enable strict ARP mode in the 
+kube-proxy configuration. Run the following command:
+
+> kubectl edit configmap -n kube-system kube-proxy -> if it opens it in read only you can use the following command instead: KUBE_EDITOR="nano" kubectl edit configmap -n kube-system kube-proxy
+
+Find strictARP and set it to true:
+
+ipvs:
+  strictARP: true
+
+After updating the configmap rollout the change:
+
+> kubectl rollout restart daemonset kube-proxy -n kube-system
+
+---
+
+4.4.2 Install MetalB via Helm:
+
+* MetalB is an open-source load-balancer implementation for bare-mteal Kubernetes clusters.
+To install it and set it up follow the following steps:
+
+> cd k8s_manifests/load_balancer/
+> bash install_metalb.sh
+
+The 'metalb_config.yaml' file has configs for the load-balancer, including a range of 
+available IP addresses, which the tool can use. Make sure to change the range to an 
+available list of IP addresses on your system, the ones in there right now are only an 
+example.
+
+Wait until all the pods in the metalb-system namespace are up and running and then apply 
+the configs with the following:
+
+> apply_configs.sh
+
 ===
