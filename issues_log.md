@@ -40,3 +40,14 @@ webhook, but it also needed to be disabled for Prometheus when using the helm ch
 install the Prometheus stack.
 
 ---
+
+4. Once grafana was installed I wanted to open it in my web browser, but trying to use 
+the endpoint configured in the ingress rule is not opening anything. To make this work on 
+a local cluster there are a few things that need to happen:
+    - since I am using kube-proxy in IPVS mode, I needed to enable strict ARP mode in the 
+    kube-proxy configuration;
+    - install MetalB via Helm;
+    - configure the IP address pool and l2 advertisment;
+    - map the endpoint to the configured IP address in the /etc/hosts file or DNS server.
+
+---
